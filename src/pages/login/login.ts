@@ -23,15 +23,15 @@ export class LoginPage {
   }
 
   logForm(){
-    console.log("id : "+this.data.id);
-    console.log("password : "+this.data.password);
+    //console.log("id : "+this.data.id);
+    //console.log("password : "+this.data.password);
   }
   signupBtn(){
     this.navCtrl.push(SignupPage);
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad LoginPage');
+    //console.log('ionViewDidLoad LoginPage');
   }
 
 }

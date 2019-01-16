@@ -21,29 +21,32 @@
         <ion-label fixed>Id</ion-label>
         <ion-input type="text" [(ngModel)]="data.id" name="id" 
           formControlName="userId"
-          [error]="myForm.controls.userId.invalid && form.controls.userId.dirty && form.controls.userId.touched"
-          [errorMessage]="errorFor('userId')"
+          (blur)="errorFor('userId', errorId)"
         ></ion-input>
-        <div *ngIf=""></div>
+      </ion-item>
+      <ion-item [hidden]="!(myForm.controls.userId.invalid && myForm.controls.userId.dirty && myForm.controls.userId.touched)">
+          <p #errorId></p>
       </ion-item>
       <ion-item>
-          <ion-label fixed >Password</ion-label>
+          <ion-label fixed >Email</ion-label>
           <ion-input type="text" [(ngModel)]="data.email" name="password" 
             formControlName="userEmail"
-            [error]="myForm.controls.userEmail.invalid && myForm.controls.myEmail.dirty && myForm.controls.myEmail.touched"
-            [errorMessage]="errorFor('userEmail')"
           ></ion-input>
+          <div *ngIf="myForm.controls.userEmail.invalid && myForm.controls.userEmail.dirty && myForm.controls.userEmail.touched"></div>
         </ion-item>
       <ion-item>
         <ion-label fixed >Password</ion-label>
         <ion-input type="password" [(ngModel)]="data.password" name="password" 
           formControlName="userPassword"
-          [error]="myForm.controls.userPassword.invalid && myForm.controls.userPassword.dirty && myForm.controls.userPassword.touched"
-          [errorMessage]="errorFor('userPassword')" 
           password-toggle="true"
         ></ion-input>
+        <div *ngIf="myForm.controls.userPassword.invalid && myForm.controls.userPassword.dirty && myForm.controls.userPassword.touched"></div>
       </ion-item>
       <!-- disabled 추가 예정 -->
       <button ion-button type="submit" [disabled]="myForm.invalid && triedToSubmit">Signup</button>
     </form> 
+    <p>{{myForm.controls.userId.invalid}}</p>
+    <p>{{myForm.controls.userId.dirty}}</p>
+    <p>{{myForm.controls.userId.touched}}</p>
+    <p #asd>{{errorData.userId}}</p>
 </ion-content>

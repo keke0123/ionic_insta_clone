@@ -20,6 +20,13 @@ export class SignupPage {
     password:'',
     email:''
   }
+
+  errorData:any = {
+    userId:'11',
+    userPassword:'',
+    userEmail:''
+  }
+  
   // myForm: FormGroup; // 이거 붙여줘야 되는거 같은데?
   myForm: FormGroup;
   triedToSubmit: boolean = false;
@@ -31,6 +38,7 @@ export class SignupPage {
       userPassword:['', [Validators.required, Validators.pattern('(?=.+[#?!@$%^&*-])(?=.+[a-z])(?=.+[0-9]).{6,}')]],
       userEmail:['', [Validators.required, Validators.email]]
     });
+ 
   }
 
   submit(){
@@ -56,14 +64,16 @@ export class SignupPage {
       pattern: '특수문자, 영소문자, 숫자를 하나 이상씩 6글자 이상 입력해주세요'
     }
   }
-  errorFor(field){
+  errorFor(field, id){
+    this.errorData[field]="hihi";
     var control=this.myForm.controls[field];
     for(var validator in control.errors){
       if(control.errors[validator]){
-        return this.errorMessages[field][validator];
+        id.innerText=this.errorMessages[field][validator];
+        this.errorData[field]=this.errorMessages[field][validator];
+        //console.log(this.errorData[field]);
       }
     }
-    return null;
   }
 
   signupForm(){
@@ -71,7 +81,7 @@ export class SignupPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad SignupPage');
+    //console.log('ionViewDidLoad SignupPage');
   }
 
 }
