@@ -14,16 +14,28 @@
 
 
 <ion-content padding>  
-  <form (ngSubmit)="logForm()">
+  <form (ngSubmit)="submitLogin()" novalidate [formGroup]="loginForm">
     <ion-item>
       <ion-label fixed>Id</ion-label>
-      <ion-input type="text" [(ngModel)]="data.id" name="id" ></ion-input>
+      <ion-input type="text" [(ngModel)]="data.id" name="id" 
+        formControlName="userId"
+        (blur)="errorFor('userId', errorId)"
+      ></ion-input>
+    </ion-item>
+    <ion-item [hidden]="!(loginForm.controls.userId.invalid && loginForm.controls.userId.dirty && loginForm.controls.userId.touched)">
+        <p #errorId>{{errorData.userId}}</p>
     </ion-item>
     <ion-item>
       <ion-label fixed >Password</ion-label>
-      <ion-input type="password" [(ngModel)]="data.password" name="password" ></ion-input>
+      <ion-input type="password" [(ngModel)]="data.password" name="password" 
+        formControlName="userPassword"
+        (blur)="errorFor('userPassword', errorPassword)"
+      ></ion-input>
     </ion-item>
-    <button ion-button type="submit">Login</button>
+    <ion-item [hidden]="!(loginForm.controls.userPassword.invalid && loginForm.controls.userPassword.dirty && loginForm.controls.userPassword.touched)">
+        <p #errorPassword>{{errorData.userPassword}}</p>
+    </ion-item> 
+    <button ion-button type="submit" [disabled]="loginForm.invalid && triedToSubmitLogin">Login</button>
     <button ion-button icon-start (click)="signupBtn()">
       <ion-icon name="play" ></ion-icon>
       SignUp

@@ -2,13 +2,6 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
 
-/**
- * Generated class for the SignupPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
 @IonicPage()
 @Component({
   selector: 'page-signup',
@@ -22,18 +15,18 @@ export class SignupPage {
   }
 
   errorData:any = {
-    userId:'11',
-    userPassword:'',
-    userEmail:''
+    userId:'id 를 입력해주세요',
+    userPassword:'Password 를 입력해주세요',
+    userEmail:'Email 을 입력해주세요'
   }
   
-  // myForm: FormGroup; // 이거 붙여줘야 되는거 같은데?
-  myForm: FormGroup;
+  // signupForm: FormGroup; // 이거 붙여줘야 되는거 같은데?
+  signupForm: FormGroup;
   triedToSubmit: boolean = false;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private formBuilder:FormBuilder) {
-    this.myForm = formBuilder.group({
+    this.signupForm = formBuilder.group({
       userId:['', [Validators.required, Validators.minLength(2)]],
       userPassword:['', [Validators.required, Validators.pattern('(?=.+[#?!@$%^&*-])(?=.+[a-z])(?=.+[0-9]).{6,}')]],
       userEmail:['', [Validators.required, Validators.email]]
@@ -41,12 +34,12 @@ export class SignupPage {
  
   }
 
-  submit(){
+  submitSignup(){
     this.triedToSubmit = true;
-    if(this.myForm.invalid){
-      for(var control in this.myForm.controls){
-        this.myForm.controls[control].markAsDirty();
-        this.myForm.controls[control].markAsTouched();
+    if(this.signupForm.invalid){
+      for(var control in this.signupForm.controls){
+        this.signupForm.controls[control].markAsDirty();
+        this.signupForm.controls[control].markAsTouched();
       }
     }
   }
@@ -57,26 +50,28 @@ export class SignupPage {
     },
     userEmail:{
       required:'Email 을 입력해주세요',
-      eamil: '불가능한 Email 주소 입니다'
+      email: '불가능한 Email 주소 입니다'
     },
     userPassword:{
       required: 'Password 를 입력해주세요',
       pattern: '특수문자, 영소문자, 숫자를 하나 이상씩 6글자 이상 입력해주세요'
     }
   }
+  // blur 이벤트로 error 체크
   errorFor(field, id){
-    this.errorData[field]="hihi";
-    var control=this.myForm.controls[field];
+    var control=this.signupForm.controls[field];
     for(var validator in control.errors){
       if(control.errors[validator]){
+        console.log(validator);
+        // #errorId 라는 id 값을 받아와서 넣는 방법
         id.innerText=this.errorMessages[field][validator];
+        // errorData 란 오브젝트에 넣어서 {{ 돌려주는 법 }}
         this.errorData[field]=this.errorMessages[field][validator];
-        //console.log(this.errorData[field]);
       }
     }
   }
 
-  signupForm(){
+  signSub(){
     
   }
 
