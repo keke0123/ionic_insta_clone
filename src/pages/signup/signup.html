@@ -11,10 +11,10 @@
         <ion-label fixed>Id</ion-label>
         <ion-input type="text" [(ngModel)]="data.id" name="id" 
           formControlName="userId"
-          (blur)="errorFor('userId', errorId)"
+          (blur)="errorFor('userId', errorId); checkId();"
         ></ion-input>
       </ion-item>
-      <ion-item [hidden]="!(signupForm.controls.userId.invalid && signupForm.controls.userId.dirty && signupForm.controls.userId.touched)">
+      <ion-item [hidden]="!(signupForm.controls.userId.invalid && signupForm.controls.userId.dirty && signupForm.controls.userId.touched) ">
           <p #errorId>id 를 입력해주세요</p>
       </ion-item>
       <ion-item>
