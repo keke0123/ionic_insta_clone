@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import {HTTP} from '@ionic-native/http';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
+import { isUndefined, isBoolean } from 'ionic-angular/umd/util/util';
 
 @IonicPage()
 @Component({
@@ -32,14 +33,19 @@ export class SignupPage {
     private formBuilder:FormBuilder, private http:HTTP,
     private httpd: HttpClient) {
     this.signupForm = formBuilder.group({
-      userId:['', [Validators.required, Validators.minLength(2)]],
+      // canUseId 는 사용자 정의 validator
+      userId:['', [Validators.required, Validators.minLength(4)]],
       userPassword:['', [Validators.required, Validators.pattern('(?=.*?[#?!@$%^&*-])(?=.*?[a-z])(?=.*?[0-9]).{6,}')]],
       userEmail:['', [Validators.required, Validators.email]]
     });
- 
+    
   }
+  
+  // 
+  idUsed:boolean=false;
   // 아이디 중복 확인할 함수 / input id blur 일때 이벤트
-  checkId(){
+  checkId(errorId){
+    this.idUsed=false;
     console.log("checkId");
     this.httpd.get('http://192.168.0.3:8888/project/checkid.do',
     {
@@ -50,10 +56,14 @@ export class SignupPage {
     }).toPromise()
     .then(data => {
       console.log(data);
-      //this.signupForm.controls['userId'].setErrors({'cantuse':false});
+      //this.signupForm.controls['userId'].setErrors({'cantuse':null});
       if(data.result=='fail'){
         console.log("사용불가");
-        //this.signupForm.controls['userId'].setErrors({'cantuse':true});
+        // hidden 되어 있는 메세지 출력
+        this.idUsed=true;
+        errorId.innerText=this.errorMessages.userId.cantuse;
+        // 에러 초기화 안시켜줘도 알아서 초기화 된다. / 궁금하면 console 찍어보자
+        this.signupForm.controls.userId.setErrors({'cantuse':true});
       }
     })
     .catch();
