@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { SignupPage } from '../signup/signup';
 import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
+import { AlertController } from 'ionic-angular';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 
 /**
  * Generated class for the LoginPage page.
@@ -25,10 +27,11 @@ export class LoginPage {
   triedToSubmitLogin: boolean = false;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    private formBuilder:FormBuilder) {
-    this.loginForm = formBuilder.group({
+    private formBuilder:FormBuilder, private alertCtrl: AlertController,
+    private httpd:HttpClient) {
+    this.loginForm = this.formBuilder.group({
       userId:['', [Validators.required, Validators.minLength(2)]],
-      userPassword:['', [Validators.required, Validators.pattern('(?=.+[#?!@$%^&*-])(?=.+[a-z])(?=.+[0-9]).{6,}')]]
+      userPassword:['', [Validators.required, Validators.pattern('(?=.*?[#?!@$%^&*-])(?=.*?[a-z])(?=.*?[0-9]).{6,}')]]
     });
   }
 
@@ -56,6 +59,17 @@ export class LoginPage {
         this.loginForm.controls[control].markAsTouched();
       }
     }
+    this.httpd.post('http://192.168.0.3:8888/project/login.do',
+    {
+      // JSON.stringfy 쓰고 싶으면 header 에 content-type에 charset까지 명시
+      id:this.data.id,
+      password:this.data.password,
+      email:this.data.email
+    },{}).toPromise()
+    .then(data => {
+      console.log(data);
+    })
+    .catch();
   }
 
   // blur 이벤트로 error 체크
@@ -68,6 +82,45 @@ export class LoginPage {
         this.errorData[field]=this.errorMessages[field][validator];
       }
     }
+  }
+
+  findPassword(){
+    let alert = this.alertCtrl.create({
+      title: '비밀번호 찾기',
+      message: '가입한 메일 주소를 입력해주세요.',
+      inputs: [
+        {
+          name: 'email',
+          placeholder: 'email 을 입력해 주세요'
+        }
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'send',
+          handler: (data) => {
+            console.log('send clicked');
+            this.httpd.get('http://192.168.0.3:8888/project/findpassword.do',
+            {
+              params:{
+                email:data.email
+              }
+            }).toPromise()
+            .then(data => {
+              console.log(data);
+            })
+            .catch();
+          }
+        }
+      ]
+    });
+
+    alert.present();
   }
 
   logForm(){

@@ -57,7 +57,7 @@ export class SignupPage {
     .then(data => {
       console.log(data);
       //this.signupForm.controls['userId'].setErrors({'cantuse':null});
-      if(data.result=='fail'){
+      if(data['result']=='fail'){
         console.log("사용불가");
         // hidden 되어 있는 메세지 출력
         this.idUsed=true;
