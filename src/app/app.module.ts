@@ -8,6 +8,7 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { SignupPage } from '../pages/signup/signup';
 import { LoginPage } from '../pages/login/login';
+import { MainPage } from '../pages/main/main';
 
 import {HTTP} from '@ionic-native/http';
 import {HttpClientModule, HttpClient} from '@angular/common/http';
@@ -17,7 +18,8 @@ import {HttpClientModule, HttpClient} from '@angular/common/http';
     MyApp,
     HomePage,
     SignupPage,
-    LoginPage
+    LoginPage,
+    MainPage
   ],
   imports: [
     BrowserModule,
@@ -29,7 +31,8 @@ import {HttpClientModule, HttpClient} from '@angular/common/http';
     MyApp,
     HomePage,
     SignupPage,
-    LoginPage
+    LoginPage,
+    MainPage
   ],
   providers: [
     StatusBar,

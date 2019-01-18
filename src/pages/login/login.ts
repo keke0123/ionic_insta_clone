@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { SignupPage } from '../signup/signup';
+import { MainPage } from '../main/main';
 import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { AlertController } from 'ionic-angular';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
@@ -58,18 +59,23 @@ export class LoginPage {
         this.loginForm.controls[control].markAsDirty();
         this.loginForm.controls[control].markAsTouched();
       }
+      return null;
     }
     this.httpd.post('http://192.168.0.3:8888/project/login.do',
     {
-      // JSON.stringfy 쓰고 싶으면 header 에 content-type에 charset까지 명시
       id:this.data.id,
       password:this.data.password,
-      email:this.data.email
     },{}).toPromise()
     .then(data => {
       console.log(data);
+      if(data['result']=='success'){
+        this.navCtrl.setRoot(MainPage);
+        sessionStorage.setItem("id", this.data.id);
+        sessionStorage.setItem("token", data['token']);
+      }
     })
     .catch();
+
   }
 
   // blur 이벤트로 error 체크
@@ -121,6 +127,20 @@ export class LoginPage {
     });
 
     alert.present();
+  }
+  // custom token 생성메소드
+  generateToken(n){
+    var chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    var token = '';
+    for(var i = 0; i < n; i++) {
+        token += chars[Math.floor(Math.random() * chars.length)];
+    }
+    return token;
+  }
+
+  //test login 기능
+  testBtn(){
+    this.navCtrl.setRoot(MainPage);
   }
 
   logForm(){
