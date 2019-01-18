@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { SignupPage } from '../signup/signup';
 import { MainPage } from '../main/main';
+import { TabPage } from '../tab/tab';
 import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { AlertController } from 'ionic-angular';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
@@ -69,7 +70,7 @@ export class LoginPage {
     .then(data => {
       console.log(data);
       if(data['result']=='success'){
-        this.navCtrl.setRoot(MainPage);
+        this.navCtrl.setRoot(TabPage);
         sessionStorage.setItem("id", this.data.id);
         sessionStorage.setItem("token", data['token']);
       }
@@ -140,7 +141,7 @@ export class LoginPage {
 
   //test login 기능
   testBtn(){
-    this.navCtrl.setRoot(MainPage);
+    this.navCtrl.setRoot(TabPage);
   }
 
   logForm(){

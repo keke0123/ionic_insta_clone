@@ -1,0 +1,29 @@
+page-upload {
+    .imgWrapper{
+        display:flex;
+        position: relative;
+        height: 300px;
+        border: 1px solid red;
+
+        .leftBtn{
+           position: absolute;
+           top: 135px;
+           left: 10px;
+           width: 30px;
+           height: 30px;
+           border: 1px solid blue;
+        }
+        .rightBtn{
+            position: absolute;
+            top: 135px;
+            right: 10px;
+            width: 30px;
+            height: 30px;
+            border: 1px solid blue;
+        }
+    }
+    .textBox{
+        // background-color: bisque;
+    }
+}
+

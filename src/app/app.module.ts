@@ -9,6 +9,12 @@ import { HomePage } from '../pages/home/home';
 import { SignupPage } from '../pages/signup/signup';
 import { LoginPage } from '../pages/login/login';
 import { MainPage } from '../pages/main/main';
+import { UploadPage } from '../pages/upload/upload';
+import { ProfilePage } from '../pages/profile/profile';
+import { ContentPage } from '../pages/content/content';
+import { SearchPage } from '../pages/search/search';
+
+import { TabPage } from '../pages/tab/tab';
 
 import {HTTP} from '@ionic-native/http';
 import {HttpClientModule, HttpClient} from '@angular/common/http';
@@ -19,7 +25,12 @@ import {HttpClientModule, HttpClient} from '@angular/common/http';
     HomePage,
     SignupPage,
     LoginPage,
-    MainPage
+    MainPage,
+    UploadPage,
+    ProfilePage,
+    ContentPage,
+    SearchPage,
+    TabPage
   ],
   imports: [
     BrowserModule,
@@ -32,7 +43,12 @@ import {HttpClientModule, HttpClient} from '@angular/common/http';
     HomePage,
     SignupPage,
     LoginPage,
-    MainPage
+    MainPage,
+    UploadPage,
+    ProfilePage,
+    ContentPage,
+    SearchPage,
+    TabPage
   ],
   providers: [
     StatusBar,

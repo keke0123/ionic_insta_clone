@@ -42,4 +42,33 @@ export class MainPage {
     .catch();
   }
 
+  sessionTest1(){
+    sessionStorage.setItem("id","keke0123");
+    this.httpd.get('http://192.168.0.3:8888/project/loginTest2.do',
+    {
+      withCredentials : true,
+      params:{
+        id:sessionStorage.getItem("id"),
+      }
+    }).toPromise()
+    .then(data => {
+      console.log(data);
+    })
+    .catch();
+  }
+  sessionTest2(){
+    sessionStorage.setItem("id","keke0123");
+    this.httpd.get('http://192.168.0.3:8888/project/loginTest3.do',
+    {
+      withCredentials : true,
+      params:{
+        id:sessionStorage.getItem("id"),
+      }
+    }).toPromise()
+    .then(data => {
+      console.log(data);
+    })
+    .catch();
+  }
+
 }
