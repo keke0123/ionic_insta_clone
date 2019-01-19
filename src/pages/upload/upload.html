@@ -9,17 +9,23 @@
 
 
 <ion-content padding>
+  <!-- 
   <div class="imgWrapper">
       <div class="leftBtn"></div>
       <div class="rightBtn"></div>
       <div class="viewImg">
         <img src="" alt="">
-      </div>
-      
-  </div>
+      </div>  
+  </div> 
+  -->
+  <ion-slides pager class="imgWrapper">
+    <ion-slide *ngFor="let item of pImg">
+      <img src="{{item}}" alt="">
+    </ion-slide>
+  </ion-slides>
   <hr>
-  <button ion-button >사진찍기</button>
-  <button ion-button>갤러리에서 올리기</button>
+  <button ion-button (click)="takeImg()" >사진찍기</button>
+  <button ion-button (click)="pickImg()">갤러리에서 올리기</button>
   <hr>
   <ion-item>
       <ion-label ></ion-label>

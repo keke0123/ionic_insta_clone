@@ -16,6 +16,9 @@ import { SearchPage } from '../pages/search/search';
 
 import { TabPage } from '../pages/tab/tab';
 
+import {Camera} from '@ionic-native/camera';
+import { ImagePicker } from '@ionic-native/image-picker'
+
 import {HTTP} from '@ionic-native/http';
 import {HttpClientModule, HttpClient} from '@angular/common/http';
 
@@ -55,7 +58,8 @@ import {HttpClientModule, HttpClient} from '@angular/common/http';
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     HTTP, 
-    HttpClientModule
+    HttpClientModule,
+    Camera,ImagePicker
     
   ]
 })
