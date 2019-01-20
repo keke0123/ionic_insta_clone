@@ -23,7 +23,7 @@ export class TabPage {
   tab2 = UploadPage;
   tab3 = SearchPage;
   tab4 = ProfilePage;
-  tab5 = ContentPage;
+  // tab5 = ContentPage;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
