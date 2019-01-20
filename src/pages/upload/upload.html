@@ -29,14 +29,18 @@
   <hr>
   <ion-item>
       <ion-label ></ion-label>
-      <ion-textarea class="textBox" rows="2" maxLength="500" placeholder="내용을 작성해 주세요."></ion-textarea>
+      <ion-textarea [(ngModel)]="content" class="textBox" rows="2" maxLength="500" placeholder="내용을 작성해 주세요."></ion-textarea>
   </ion-item>
   <hr>
   <ion-item>
     <ion-label ></ion-label>
-    <ion-input type="text" name="tag" placeholder="등록할 태그를 적어주세요" ></ion-input>
+    <ion-input #tag type="text" name="tag" placeholder="등록할 태그를 적어주세요" ></ion-input>
   </ion-item>
-  <button ion-button >태그등록</button>
+  <ul><li class="liTag" *ngFor="let tag of tags; let last=last">
+    <span *ngIf="last">#{{tag}}</span>
+    <span *ngIf="!last">#{{tag}},</span>
+  </li></ul>
+  <button ion-button (click)="saveTag(tag.value)">태그등록</button>
   <hr>
-  <button ion-button type="button">전송</button>
+  <button ion-button type="button" (click)="submitBtn()">전송</button>
 </ion-content>

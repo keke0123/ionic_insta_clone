@@ -19,6 +19,8 @@ import { ImagePicker, ImagePickerOptions } from '@ionic-native/image-picker';
 export class UploadPage {
 
   pImg:Array<string>=[];
+  tags:Array<string>=[];
+  content:string='';
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private camera:Camera, private imagePicker:ImagePicker, private httpd:HttpClient) {
@@ -38,19 +40,6 @@ export class UploadPage {
     };
     this.camera.getPicture(options).then((imageData) => {
       this.pImg.push('data:image/jpeg;base64,' + imageData);
-      
-
-      //let headers = new Headers();
-
-      // this.httpd.post('http://192.168.0.3:8888/project/upload.do',{
-      //   // data
-      // },{
-      //   // header 
-      // }).toPromise()
-      // .then(data => {
-      //   console.log(data);
-      // }).catch(error => {
-      // });
 
     }, (err)=>{ 
     });
@@ -69,6 +58,32 @@ export class UploadPage {
         this.pImg.push('data:image/jpeg;base64,' + results[i]);
       }
     }, (err) => {});
+  }
+  // 태그 저장 버튼
+  saveTag(tag){
+    //console.log(tag);
+    //console.log("content : "+this.content);
+    this.tags.push(tag);
+    
+  }
+  // 전송 버튼
+  submitBtn(){
+    this.httpd.post('http://192.168.0.3:8888/project/uploaddata.do',{
+      // data
+      uploadImgs:this.pImg,
+      tags:this.tags,
+      content:this.content
+    },{
+      params:{
+        id:sessionStorage.getItem("id"),
+        token:sessionStorage.getItem("token"),
+      }
+      // header 
+    }).toPromise()
+    .then(data => {
+      console.log(data);
+    }).catch(error => {
+    });
   }
 
 }
