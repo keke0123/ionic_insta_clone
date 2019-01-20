@@ -14,10 +14,11 @@
 
 
 <ion-content padding>
+    <button ion-button (click)="test()">테스트</button>
     <!-- search bar 와 segment 사용예정 -->
     <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
     <div padding>
-      <ion-segment >
+      <ion-segment [(ngModel)]="searchMethod" >
         <ion-segment-button value="kittens">
           Kittens
         </ion-segment-button>

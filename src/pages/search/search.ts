@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 
 /**
  * Generated class for the SearchPage page.
@@ -15,11 +16,36 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class SearchPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  search:string='';
+  searchMethod:string='kittens';
+
+  constructor(public navCtrl: NavController, public navParams: NavParams,
+    private httpd:HttpClient) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad SearchPage');
   }
-
+  getItems($event){
+    console.log($event.target.value);
+    this.search=$event.target.value;
+    this.httpd.get('http://192.168.0.3:8888/project/search.do',
+    {
+      params:{
+        id:sessionStorage.getItem("id"),
+        token:sessionStorage.getItem("token"),
+        search:this.search,
+        searchMethod:this.searchMethod
+      }
+      // header 
+    }).toPromise()
+    .then(data => {
+      console.log(data);
+    }).catch(error => {
+    });
+  }
+  // test
+  test(){
+    console.log(this.searchMethod);
+  }
 }
