@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component} from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 
@@ -15,9 +15,9 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
   templateUrl: 'search.html',
 })
 export class SearchPage {
-
+ 
   search:string='';
-  searchMethod:string='kittens';
+  searchMethod:string='tag';
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private httpd:HttpClient) {
@@ -25,6 +25,8 @@ export class SearchPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad SearchPage');
+    
+    
   }
   getItems($event){
     console.log($event.target.value);
@@ -46,6 +48,6 @@ export class SearchPage {
   }
   // test
   test(){
-    console.log(this.searchMethod);
+    //console.log(this.searchMethod);
   }
 }

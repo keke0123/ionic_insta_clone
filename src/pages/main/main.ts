@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { IonicPage, NavController, NavParams, Content } from 'ionic-angular';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 
 @IonicPage()
@@ -8,6 +8,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
   templateUrl: 'main.html',
 })
 export class MainPage {
+  @ViewChild(Content) content:Content;
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -20,10 +21,31 @@ export class MainPage {
   };
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private httpd:HttpClient) {
+      
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad MainPage');
+  }
+  
+  // 스크롤 테스트
+  scrollEvent(e){
+    //console.log(e);
+    // scroll top
+    if(e.scrollTop==0){
+      console.log("top");
+    }
+    //console.log(this.content.contentHeight);
+    //console.log(this.content.scrollHeight);
+    //console.log(e.scrollTop);
+    // scroll bottom
+    if(this.content.scrollHeight== e.scrollTop+this.content.contentHeight){
+      console.log("bottom");
+    }
+    
+  }
+  scrollTop(){
+    console.log("top");
   }
 
   // 테스트 로그인 체크

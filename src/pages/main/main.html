@@ -4,7 +4,7 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content padding (ionScroll)="scrollEvent($event)">
   <h3>main 페이지 입니다.</h3>
   <button ion-button type="button" (click)="testLoginCheck()">테스트 로그인 체크</button>
   <br>
