@@ -12,47 +12,38 @@
   <button ion-button (click)="sessionTest2()">세션값 테스트2</button>
   <hr>
   <!-- card 사용 예정 -->
-  <ion-card>
+  <ion-card *ngFor="let item of list">
     <ion-item>
       <ion-avatar item-start>
-        <img src="img/marty-avatar.png" alt="썸네일">
+        <img src="{{item.thumbnail}}" alt="썸네일">
       </ion-avatar>
-      <h2>Marty McFly</h2>
-      <p>November 5, 1955</p>
+      <h2>{{item.writer}}</h2>
+      <p>{{item.regdate}}</p>
     </ion-item>
     <ion-slides pager class="imgBox">
-      <ion-slide style="background-color: green">
-        <h2>Slide 1</h2>
-      </ion-slide>
-    
-      <ion-slide style="background-color: blue">
-        <h2>Slide 2</h2>
-      </ion-slide>
-    
-      <ion-slide style="background-color: red">
-        <h2>Slide 3</h2>
+      <ion-slide *ngFor="let img of item.imgs">
+        <img src="http://localhost:8888/project/upload/{{img}}" alt="">
       </ion-slide>
     </ion-slides>
     <ion-card-content>
-      <p>Wait a minute. Wait a minute, Doc. Uhhh... Are you telling me that you built a time machine... out of a DeLorean?! Whoa. This is heavy.</p>
+      <p>{{item.content}}</p>
     </ion-card-content>
-  
     <ion-row>
       <ion-col>
         <button ion-button icon-start clear small>
           <ion-icon name="thumbs-up"></ion-icon>
-          <div>12 Likes</div>
+          <div>{{item.count_like}} Likes</div>
         </button>
       </ion-col>
       <ion-col>
         <button ion-button icon-start clear small>
           <ion-icon name="text"></ion-icon>
-          <div>4 Comments</div>
+          <div>{{item.count_comment}} Comments</div>
         </button>
       </ion-col>
       <ion-col align-self-center text-center>
         <ion-note>
-          11h ago
+          <!-- 11h ago -->
         </ion-note>
       </ion-col>
     </ion-row>

@@ -1,6 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, Content } from 'ionic-angular';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
+import { listLazyRoutes } from '@angular/compiler/src/aot/lazy_routes';
 
 @IonicPage()
 @Component({
@@ -9,6 +10,10 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 })
 export class MainPage {
   @ViewChild(Content) content:Content;
+
+  // 게시물 수
+  rNum:number = 0;
+  list:Array<object> = [];
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -26,6 +31,24 @@ export class MainPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad MainPage');
+    // 테스트 아이디 세팅
+    sessionStorage.setItem('id', 'keke0123')
+    // 페이지 로딩시 최초 데이타 한번 받아오기
+    this.httpd.get('http://192.168.0.3:8888/project/mainPage.do',
+    {
+      params:{
+        id:sessionStorage.getItem("id"),
+        token:sessionStorage.getItem("token"),
+        rNum:'1'
+      }
+    }).toPromise()
+    .then(data => {
+      if(data['data'].length!=0){
+        this.list=data['data'];
+      }
+      this.rNum=this.list.length+1;
+    })
+    .catch();
   }
   
   // 스크롤 테스트
@@ -41,11 +64,24 @@ export class MainPage {
     // scroll bottom
     if(this.content.scrollHeight== e.scrollTop+this.content.contentHeight){
       console.log("bottom");
+      this.httpd.get('http://192.168.0.3:8888/project/mainPage.do',
+      {
+        params:{
+          id:sessionStorage.getItem("id"),
+          token:sessionStorage.getItem("token"),
+          rNum:''+this.rNum
+        }
+      }).toPromise()
+      .then(data => {
+        if(data['data'].length!=0){
+          this.list.concat(data['data']);
+        }
+        this.rNum=this.list.length+1;
+        console.log(this.list);
+      })
+      .catch();
     }
     
-  }
-  scrollTop(){
-    console.log("top");
   }
 
   // 테스트 로그인 체크
