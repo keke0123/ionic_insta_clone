@@ -29,25 +29,18 @@
   <!-- segment 로 동작 -->
   <div padding>
     <!-- pet 의 초기값을 .ts 에 넣어주면 초기 동작 가능 -->
-    <ion-segment [(ngModel)]="pet">
+    <ion-segment [(ngModel)]="profileMethod">
       <ion-segment-button value="kittens">
         Kittens
       </ion-segment-button>
-      <ion-segment-button value="puppies">
+      <!-- 
+        <ion-segment-button value="puppies">
         Puppies
-      </ion-segment-button>
+        </ion-segment-button> 
+      -->
     </ion-segment>
   </div>
-  <div [ngSwitch]="pet">
-    <ion-list *ngSwitchCase="'puppies'">
-      <!-- card background -->
-      <ion-card>
-        <img src="img/card-saopaolo.png"/>
-        <div class="card-title">São Paulo</div>
-        <div class="card-subtitle">41 Listings</div>
-      </ion-card>
-    </ion-list>
-  
+  <div [ngSwitch]="profileMethod">
     <ion-list *ngSwitchCase="'kittens'">
       <!-- card background -->
       <ion-card>
@@ -56,6 +49,16 @@
         <div class="card-subtitle">41 Listings</div>
       </ion-card>
     </ion-list>
+  
+    <!-- 
+      <ion-list *ngSwitchCase="'kittens'">
+        <ion-card>
+          <img src="img/card-saopaolo.png"/>
+          <div class="card-title">São Paulo</div>
+          <div class="card-subtitle">41 Listings</div>
+        </ion-card>
+      </ion-list> 
+    -->
   </div>
   
 </ion-content>

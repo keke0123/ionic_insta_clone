@@ -15,6 +15,8 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class ProfilePage {
 
+  profileMethod:string = 'kittens';
+
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
