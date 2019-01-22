@@ -14,7 +14,7 @@
 
 
 <ion-content padding>
-    <button ion-button (click)="test()">테스트</button>
+    <!-- <button ion-button (click)="test()">테스트</button> -->
     <!-- search bar 와 segment 사용예정 -->
     <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
     <div padding>
@@ -33,29 +33,37 @@
     
     <div [ngSwitch]="searchMethod">
       <ion-list *ngSwitchCase="'follow'">
-        <ion-item>
+        <ion-item *ngFor="let item of searchList">
           <ion-thumbnail item-start>
-            <img src="img/thumbnail-puppy-1.jpg">
+            <span *ngIf="item.thumbnail == null">
+              <img src="http://localhost:8888/project/upload/25.jpeg">
+            </span>
           </ion-thumbnail>
-          <h2>Ruby</h2>
+          <h2>{{item.searchResult}}</h2>
         </ion-item>
       </ion-list>
       <ion-list *ngSwitchCase="'like'">
-        <ion-item>
+        <ion-item *ngFor="let item of searchList">
           <ion-thumbnail item-start>
-            <img src="img/thumbnail-kitten-1.jpg">
+            <span *ngIf="item.thumbnail == null">
+              <img src="http://localhost:8888/project/upload/25.jpeg">
+            </span>
           </ion-thumbnail>
-          <h2>Luna</h2>
+          <h2>{{item.searchResult}}</h2>
         </ion-item>
       </ion-list>
       <ion-list *ngSwitchCase="'tag'">
-        <ion-item>
+        <ion-item *ngFor="let item of searchList">
           <ion-thumbnail item-start>
-            <img src="img/thumbnail-kitten-1.jpg">
+            <span *ngIf="item.thumbnail == null">
+              <img src="http://localhost:8888/project/upload/25.jpeg">
+            </span>
+            <span *ngIf="item.thumbnail != null">
+              <img src="http://localhost:8888/project/upload/{{item.thumbnail}}">
+            </span>
           </ion-thumbnail>
-          <h2>Luna</h2>
+          <h2>{{item.searchResult}}</h2>
         </ion-item>
-        
       </ion-list>
     </div>
 </ion-content>

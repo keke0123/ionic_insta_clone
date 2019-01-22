@@ -18,6 +18,7 @@ export class SearchPage {
  
   search:string='';
   searchMethod:string='tag';
+  searchList:Array<object>=[];
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private httpd:HttpClient) {
@@ -43,6 +44,8 @@ export class SearchPage {
     }).toPromise()
     .then(data => {
       console.log(data);
+      this.searchList=data['data'];
+      console.log(this.searchList);
     }).catch(error => {
     });
   }

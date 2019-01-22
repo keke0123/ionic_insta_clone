@@ -15,15 +15,20 @@
 
 <ion-content padding (ionScroll)="scrollEvent($event)">
   <ion-card>
-    <ion-item >
+    <ion-item class="head">
       <ion-avatar item-left>
-        <img src="">
+        <span *ngIf="profile.thumbnail == null">
+          <img src="http://localhost:8888/project/upload/25.jpeg">
+        </span>
+        <span *ngIf="profile.thumbnail != null">
+          <img src="http://localhost:8888/project/upload/{{profile.thumbnail}}">
+        </span>
       </ion-avatar>
-      <h2>ㅎㅇㅎㅇ</h2>
-      <span>게시글</span>
-      <span>팔로우</span>
-      <span>팔로잉</span>
-      <ion-icon name="play"></ion-icon>
+      <h2>{{profile.id}}</h2>
+      <span class="small-text">게시글 : {{profile.count_board}}</span>
+      <span class="small-text">팔로우 : {{profile.count_follow}}</span>
+      <span class="small-text">팔로잉 : {{profile.count_follower}}</span>
+      <ion-icon class="small-icon" name="ios-cog"></ion-icon>
     </ion-item>
   </ion-card>
   <!-- segment 로 동작 -->
@@ -43,22 +48,10 @@
   <div [ngSwitch]="profileMethod">
     <ion-list *ngSwitchCase="'imgs'">
       <!-- card background -->
-      <ion-card *ngFor="let item of list">
-        <img src="http://localhost:8888/project/upload/{{item.imgs[0]}}"/>
-        <div class="card-title">São Paulo</div>
-        <div class="card-subtitle">41 Listings</div>
+      <ion-card class="imgCard" *ngFor="let item of list">
+        <img class="photo" src="http://localhost:8888/project/upload/{{item.imgs[0]}}"/>
+        <div class="title"><h2>사진</h2></div>
       </ion-card>
     </ion-list>
-  
-    <!-- 
-      <ion-list *ngSwitchCase="'kittens'">
-        <ion-card>
-          <img src="img/card-saopaolo.png"/>
-          <div class="card-title">São Paulo</div>
-          <div class="card-subtitle">41 Listings</div>
-        </ion-card>
-      </ion-list> 
-    -->
   </div>
-  
 </ion-content>

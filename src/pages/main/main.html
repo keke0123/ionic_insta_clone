@@ -5,17 +5,22 @@
 </ion-header>
 
 <ion-content padding (ionScroll)="scrollEvent($event)">
-  <h3>main 페이지 입니다.</h3>
+  <!-- <h3>main 페이지 입니다.</h3>
   <button ion-button type="button" (click)="testLoginCheck()">테스트 로그인 체크</button>
   <br>
   <button ion-button (click)="sessionTest1()">세션값 테스트1</button>
   <button ion-button (click)="sessionTest2()">세션값 테스트2</button>
-  <hr>
+  <hr> -->
   <!-- card 사용 예정 -->
-  <ion-card *ngFor="let item of list">
+  <ion-card *ngFor="let item of list; let i = index">
     <ion-item>
       <ion-avatar item-start>
-        <img src="{{item.thumbnail}}" alt="썸네일">
+        <span *ngIf="item.thumbnail != null">
+            <img src="http://localhost:8888/project/upload/{{item.thumbnail}}" alt="썸네일">
+        </span>
+        <span *ngIf="item.thumbnail == null">
+            <img src="http://localhost:8888/project/upload/25.jpeg" alt="썸네일">
+        </span>
       </ion-avatar>
       <h2>{{item.writer}}</h2>
       <p>{{item.regdate}}</p>
@@ -30,7 +35,7 @@
     </ion-card-content>
     <ion-row>
       <ion-col>
-        <button ion-button icon-start clear small>
+        <button ion-button icon-start clear small (click)="likeBtn(item.board_num, i)">
           <ion-icon name="thumbs-up"></ion-icon>
           <div>{{item.count_like}} Likes</div>
         </button>

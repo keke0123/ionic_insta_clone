@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, Content } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Content, Events } from 'ionic-angular';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 
 @IonicPage()
@@ -24,8 +24,26 @@ export class MainPage {
     }
   };
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    private httpd:HttpClient) {
-      
+    private httpd:HttpClient, private events:Events) {
+    events.subscribe('tab:main', ()=>{
+      console.log("main clicked");
+      this.httpd.get('http://192.168.0.3:8888/project/mainPage.do',
+      {
+        params:{
+          id:sessionStorage.getItem("id"),
+          token:sessionStorage.getItem("token"),
+          rNum:''+this.rNum
+        }
+      }).toPromise()
+      .then(data => {
+        if(data['data'].length!=0){
+          this.list.concat(data['data']);
+        }
+        this.rNum=this.list.length+1;
+        console.log(this.list);
+      })
+      .catch();
+    });
   }
 
   ionViewDidLoad() {
@@ -127,5 +145,32 @@ export class MainPage {
     })
     .catch();
   }
-
+  // 좋아요 버튼
+  likeBtn(num, i){
+    console.log("like Btn");
+    console.log(num);
+    // index 번호
+    console.log(i);
+    this.httpd.get('http://192.168.0.3:8888/project/likebtn.do',
+    {
+      params:{
+        id:sessionStorage.getItem("id"),
+        board_num:''+num
+      }
+    }).toPromise()
+    .then(data => {
+      console.log(data);
+      if(data['result']=='up'){
+        this.list[i]['count_like']=this.list[i]['count_like']+1;
+        console.log(this.list);
+      }else if(data['result']=='down'){
+        this.list[i]['count_like']=this.list[i]['count_like']-1;
+        console.log(this.list);
+      }
+    })
+    .catch();
+  }
+ 
+ 
+  
 }

@@ -18,7 +18,7 @@
       </div>  
   </div> 
   -->
-  <ion-slides pager class="imgWrapper">
+  <ion-slides pager class="imgWrapper" *ngIf="pImg.length != 0">
     <ion-slide *ngFor="let item of pImg">
       <img src="{{item}}" alt="">
     </ion-slide>
