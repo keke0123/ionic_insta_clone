@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { IonicPage, NavController, NavParams, Content } from 'ionic-angular';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 
 /**
  * Generated class for the ContentPage page.
@@ -15,11 +16,112 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class ContentPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  @ViewChild(Content) content:Content;
+
+  search_id:string="";
+  rNum:number=0;
+  profile:any = {};
+  list:Array<object> = [];
+  profileMethod='imgs';
+  isFollow:boolean=false;
+
+  constructor(public navCtrl: NavController, public navParams: NavParams,
+    private httpd:HttpClient) {
+    
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ContentPage');
+    this.search_id=this.navParams.get("search_id");
+    console.log(this.search_id);
+
+    this.httpd.get('http://192.168.0.3:8888/project/searchid.do',
+    {
+      params:{
+        id:this.search_id,
+        rNum:''+this.rNum
+      }
+      // header 
+    }).toPromise()
+    .then(data => {
+      console.log(data);
+      this.profile=data['data'];
+      if(data['data']['boardData'].length!=0){
+        this.list=data['data']['boardData'];
+      }
+      this.rNum=this.list.length+1;
+      console.log(this.list);
+    }).catch(error => {
+    });
+
+    // 테스트용 session id
+    this.httpd.get('http://192.168.0.3:8888/project/searchisfollow.do',
+    {
+      params:{
+        id:this.search_id,
+        myId:'keke0123'
+      }
+      // header 
+    }).toPromise()
+    .then(data => {
+      console.log(data);
+      if(data['result']=='not'){
+        this.isFollow=false;
+      }else if(data['result']=='followed'){
+        this.isFollow=true;
+      }
+    }).catch(error => {
+    });
   }
+
+  followSystem(){
+    this.httpd.get('http://192.168.0.3:8888/project/searchfollowsystem.do',
+    {
+      params:{
+        id:this.search_id,
+        myId:'keke0123'
+      }
+      // header 
+    }).toPromise()
+    .then(data => {
+      console.log(data);
+      if(data['result']=='inserted'){
+        this.isFollow=true;
+      }else if(data['result']=='deleted'){
+        this.isFollow=false;
+      }
+    }).catch(error => {
+    });
+  }
+
+  scrollEvent(e){
+  
+    if(e.scrollTop==0){
+      console.log("top");
+    }
+    
+    if(this.content.scrollHeight== e.scrollTop+this.content.contentHeight){
+      console.log("bottom");
+      this.httpd.get('http://192.168.0.3:8888/project/searchid.do',
+      {
+        params:{
+          id:sessionStorage.getItem("id"),
+          rNum:''+this.rNum
+        }
+      }).toPromise()
+      .then(data => {
+        //console.log(data);
+        if(data['data']['boardData'].length!=0){
+          this.list.concat(data['data']['boardData']);
+        }
+        this.rNum=this.list.length+1;
+        console.log(this.list);
+      })
+      .catch();
+    }
+    
+  }
+
+
 
 }

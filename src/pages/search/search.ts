@@ -1,6 +1,7 @@
 import { Component} from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
+import { ContentPage } from '../content/content';
 
 /**
  * Generated class for the SearchPage page.
@@ -52,5 +53,12 @@ export class SearchPage {
   // test
   test(){
     //console.log(this.searchMethod);
+  }
+  contentBtn(i){
+    console.log(i);
+    this.navCtrl.push(ContentPage,
+      {
+        search_id:this.searchList[i]['searchResult']
+      });
   }
 }

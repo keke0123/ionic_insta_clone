@@ -13,6 +13,45 @@
 </ion-header>
 
 
-<ion-content padding>
-
+<ion-content padding (ionScroll)="scrollEvent($event)">
+  <ion-card>
+    <ion-item class="head">
+      <ion-avatar item-left>
+        <span *ngIf="profile.thumbnail == null">
+          <img src="http://localhost:8888/project/upload/25.jpeg">
+        </span>
+        <span *ngIf="profile.thumbnail != null">
+          <img src="http://localhost:8888/project/upload/{{profile.thumbnail}}">
+        </span>
+      </ion-avatar>
+      <h2>{{profile.id}}</h2>
+      <span class="small-text">게시글 : {{profile.count_board}}</span>
+      <span class="small-text">팔로우 : {{profile.count_follow}}</span>
+      <span class="small-text">팔로잉 : {{profile.count_follower}}</span>
+      <ion-icon class="small-icon" [ngClass]="{'followed':isFollow}" name="ios-heart" (click)="followSystem()"></ion-icon>
+    </ion-item>
+  </ion-card>
+  <!-- segment 로 동작 -->
+  <div padding>
+    <!-- pet 의 초기값을 .ts 에 넣어주면 초기 동작 가능 -->
+    <ion-segment [(ngModel)]="profileMethod">
+      <ion-segment-button value="imgs">
+        사진
+      </ion-segment-button>
+      <!-- 
+        <ion-segment-button value="puppies">
+        Puppies
+        </ion-segment-button> 
+      -->
+    </ion-segment>
+  </div>
+  <div [ngSwitch]="profileMethod">
+    <ion-list *ngSwitchCase="'imgs'">
+      <!-- card background -->
+      <ion-card class="imgCard" *ngFor="let item of list">
+        <img class="photo" src="http://localhost:8888/project/upload/{{item.imgs[0]}}"/>
+        <div class="title"><h2>사진</h2></div>
+      </ion-card>
+    </ion-list>
+  </div>
 </ion-content>
