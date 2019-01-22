@@ -13,7 +13,7 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content padding (ionScroll)="scrollEvent($event)">
   <ion-card>
     <ion-item >
       <ion-avatar item-left>
@@ -30,8 +30,8 @@
   <div padding>
     <!-- pet 의 초기값을 .ts 에 넣어주면 초기 동작 가능 -->
     <ion-segment [(ngModel)]="profileMethod">
-      <ion-segment-button value="kittens">
-        Kittens
+      <ion-segment-button value="imgs">
+        사진
       </ion-segment-button>
       <!-- 
         <ion-segment-button value="puppies">
@@ -41,10 +41,10 @@
     </ion-segment>
   </div>
   <div [ngSwitch]="profileMethod">
-    <ion-list *ngSwitchCase="'kittens'">
+    <ion-list *ngSwitchCase="'imgs'">
       <!-- card background -->
-      <ion-card>
-        <img src="img/card-saopaolo.png"/>
+      <ion-card *ngFor="let item of list">
+        <img src="http://localhost:8888/project/upload/{{item.imgs[0]}}"/>
         <div class="card-title">São Paulo</div>
         <div class="card-subtitle">41 Listings</div>
       </ion-card>

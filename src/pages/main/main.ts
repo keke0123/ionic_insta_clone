@@ -1,7 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, Content } from 'ionic-angular';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import { listLazyRoutes } from '@angular/compiler/src/aot/lazy_routes';
 
 @IonicPage()
 @Component({
