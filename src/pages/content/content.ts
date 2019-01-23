@@ -24,6 +24,7 @@ export class ContentPage {
   list:Array<object> = [];
   profileMethod='imgs';
   isFollow:boolean=false;
+  isMyId:boolean=false;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private httpd:HttpClient) {
@@ -53,25 +54,31 @@ export class ContentPage {
       console.log(this.list);
     }).catch(error => {
     });
-
-    // 테스트용 session id
-    this.httpd.get('http://192.168.0.3:8888/project/searchisfollow.do',
-    {
-      params:{
-        id:this.search_id,
-        myId:'keke0123'
-      }
-      // header 
-    }).toPromise()
-    .then(data => {
-      console.log(data);
-      if(data['result']=='not'){
-        this.isFollow=false;
-      }else if(data['result']=='followed'){
-        this.isFollow=true;
-      }
-    }).catch(error => {
-    });
+    
+    // keke0123 자리에 sessionStorage 에서 받아온 id 값
+    if(this.search_id != 'keke0123'){
+      // 테스트용 session id
+      this.httpd.get('http://192.168.0.3:8888/project/searchisfollow.do',
+      {
+        params:{
+          id:this.search_id,
+          myId:'keke0123'
+        }
+        // header 
+      }).toPromise()
+      .then(data => {
+        console.log(data);
+        if(data['result']=='not'){
+          this.isFollow=false;
+        }else if(data['result']=='followed'){
+          this.isFollow=true;
+        }
+      }).catch(error => {
+      });
+    }else{
+      this.isMyId=true;
+    }
+    
   }
 
   followSystem(){
@@ -87,8 +94,10 @@ export class ContentPage {
       console.log(data);
       if(data['result']=='inserted'){
         this.isFollow=true;
+        this.profile.count_follower=this.profile.count_follower+1;
       }else if(data['result']=='deleted'){
         this.isFollow=false;
+        this.profile.count_follower=this.profile.count_follower-1;
       }
     }).catch(error => {
     });
@@ -121,7 +130,7 @@ export class ContentPage {
     }
     
   }
-
+ 
 
 
 }

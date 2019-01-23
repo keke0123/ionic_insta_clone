@@ -13,6 +13,7 @@ import { UploadPage } from '../pages/upload/upload';
 import { ProfilePage } from '../pages/profile/profile';
 import { ContentPage } from '../pages/content/content';
 import { SearchPage } from '../pages/search/search';
+import { CommentPage } from '../pages/comment/comment';
 
 import { TabPage } from '../pages/tab/tab';
 
@@ -33,6 +34,7 @@ import {HttpClientModule, HttpClient} from '@angular/common/http';
     ProfilePage,
     ContentPage,
     SearchPage,
+    CommentPage,
     TabPage
   ],
   imports: [
@@ -51,6 +53,7 @@ import {HttpClientModule, HttpClient} from '@angular/common/http';
     ProfilePage,
     ContentPage,
     SearchPage,
+    CommentPage,
     TabPage
   ],
   providers: [

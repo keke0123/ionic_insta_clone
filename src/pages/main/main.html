@@ -32,6 +32,8 @@
     </ion-slides>
     <ion-card-content>
       <p>{{item.content}}</p>
+      <hr>
+      <span *ngFor="let tag of item.tags">#{{item.content}}&nbsp;</span>
     </ion-card-content>
     <ion-row>
       <ion-col>
@@ -41,7 +43,7 @@
         </button>
       </ion-col>
       <ion-col>
-        <button ion-button icon-start clear small>
+        <button ion-button icon-start clear small (click)="commentBtn(i)">
           <ion-icon name="text"></ion-icon>
           <div>{{item.count_comment}} Comments</div>
         </button>

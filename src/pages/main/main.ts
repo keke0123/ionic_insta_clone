@@ -1,6 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, Content, Events } from 'ionic-angular';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
+import { CommentPage } from '../comment/comment';
 
 @IonicPage()
 @Component({
@@ -43,6 +44,12 @@ export class MainPage {
         console.log(this.list);
       })
       .catch();
+    });
+
+    events.subscribe('comment:main', (data)=>{
+      console.log("comment to main");
+      console.log(data);
+      this.list[data.index]['count_comment']=data.count_comment;
     });
   }
 
@@ -170,6 +177,18 @@ export class MainPage {
     })
     .catch();
   }
+  //comment 버튼
+  commentBtn(i){
+    this.navCtrl.push(CommentPage,
+      {
+        board_num:this.list[i]['board_num'],
+        writer:this.list[i]['writer'],
+        count_comment:this.list[i]['count_comment'],
+        index:i
+      }
+    );
+  }
+  
  
  
   

@@ -28,7 +28,12 @@
       <span class="small-text">게시글 : {{profile.count_board}}</span>
       <span class="small-text">팔로우 : {{profile.count_follow}}</span>
       <span class="small-text">팔로잉 : {{profile.count_follower}}</span>
-      <ion-icon class="small-icon" [ngClass]="{'followed':isFollow}" name="ios-heart" (click)="followSystem()"></ion-icon>
+      <span *ngIf="!isMyId">
+        <ion-icon class="small-icon" [ngClass]="{'followed':isFollow}" name="ios-heart" (click)="followSystem()"></ion-icon>
+      </span>
+      <span *ngIf="isMyId">
+        <ion-icon class="small-icon" name="ios-cog"></ion-icon>
+      </span>
     </ion-item>
   </ion-card>
   <!-- segment 로 동작 -->
