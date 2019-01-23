@@ -1,6 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, Content } from 'ionic-angular';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
+import { ServiceProvider } from '../../providers/service/service';
 
 /**
  * Generated class for the ProfilePage page.
@@ -26,11 +27,13 @@ export class ProfilePage {
   list:Array<object> = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    private httpd:HttpClient) {
+    private httpd:HttpClient, private serviceProvider:ServiceProvider) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ProfilePage');
+    //provider test
+    console.log(this.serviceProvider.data.x);
     this.httpd.get('http://192.168.0.3:8888/project/profile.do',
     {
       params:{

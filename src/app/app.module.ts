@@ -22,6 +22,7 @@ import { ImagePicker } from '@ionic-native/image-picker'
 
 import {HTTP} from '@ionic-native/http';
 import {HttpClientModule, HttpClient} from '@angular/common/http';
+import { ServiceProvider } from '../providers/service/service';
 
 @NgModule({
   declarations: [
@@ -62,7 +63,8 @@ import {HttpClientModule, HttpClient} from '@angular/common/http';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     HTTP, 
     HttpClientModule,
-    Camera,ImagePicker
+    Camera,ImagePicker,
+    ServiceProvider
     
   ]
 })

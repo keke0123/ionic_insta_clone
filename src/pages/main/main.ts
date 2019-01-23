@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, Content, Events } from 'ionic-angular';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { CommentPage } from '../comment/comment';
+import { ServiceProvider } from '../../providers/service/service';
 
 @IonicPage()
 @Component({
@@ -12,7 +13,7 @@ export class MainPage {
   @ViewChild(Content) content:Content;
 
   // 게시물 수
-  rNum:number = 0;
+  rNum:number = 1;
   list:Array<object> = [];
 
   httpOptions = {
@@ -25,25 +26,25 @@ export class MainPage {
     }
   };
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    private httpd:HttpClient, private events:Events) {
+    private httpd:HttpClient, private events:Events, 
+    private serviceProvider:ServiceProvider) {
     events.subscribe('tab:main', ()=>{
       console.log("main clicked");
-      // this.httpd.get('http://192.168.0.3:8888/project/mainPage.do',
-      // {
-      //   params:{
-      //     id:sessionStorage.getItem("id"),
-      //     token:sessionStorage.getItem("token"),
-      //     rNum:''+this.rNum
-      //   }
-      // }).toPromise()
-      // .then(data => {
-      //   if(data['data'].length!=0){
-      //     this.list.concat(data['data']);
-      //   }
-      //   this.rNum=this.list.length+1;
-      //   console.log(this.list);
-      // })
-      // .catch();
+      this.httpd.get('http://192.168.0.3:8888/project/mainPage.do',
+      {
+        params:{
+          id:sessionStorage.getItem("id"),
+          token:sessionStorage.getItem("token"),
+          rNum:''+this.rNum
+        }
+      }).toPromise()
+      .then(data => {
+        if(data['data'].length!=0){
+          this.list=data['data'];
+        }
+        this.rNum=this.list.length+1;
+      })
+      .catch();
     });
 
     events.subscribe('comment:main', (data)=>{
@@ -55,6 +56,8 @@ export class MainPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad MainPage');
+    // provider 만들어서 method 실행시켜봄
+    this.serviceProvider.myService('keke0123');
     // 테스트 아이디 세팅
     //sessionStorage.setItem('id', 'keke0123')
     // 페이지 로딩시 최초 데이타 한번 받아오기
@@ -63,7 +66,7 @@ export class MainPage {
       params:{
         id:sessionStorage.getItem("id"),
         token:sessionStorage.getItem("token"),
-        rNum:'1'
+        rNum:''+this.rNum
       }
     }).toPromise()
     .then(data => {

@@ -82,6 +82,9 @@ export class UploadPage {
     }).toPromise()
     .then(data => {
       console.log(data);
+      this.pImg=[];
+      this.tags=[];
+      this.content='';
     }).catch(error => {
     });
   }
