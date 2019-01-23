@@ -28,22 +28,22 @@ export class MainPage {
     private httpd:HttpClient, private events:Events) {
     events.subscribe('tab:main', ()=>{
       console.log("main clicked");
-      this.httpd.get('http://192.168.0.3:8888/project/mainPage.do',
-      {
-        params:{
-          id:sessionStorage.getItem("id"),
-          token:sessionStorage.getItem("token"),
-          rNum:''+this.rNum
-        }
-      }).toPromise()
-      .then(data => {
-        if(data['data'].length!=0){
-          this.list.concat(data['data']);
-        }
-        this.rNum=this.list.length+1;
-        console.log(this.list);
-      })
-      .catch();
+      // this.httpd.get('http://192.168.0.3:8888/project/mainPage.do',
+      // {
+      //   params:{
+      //     id:sessionStorage.getItem("id"),
+      //     token:sessionStorage.getItem("token"),
+      //     rNum:''+this.rNum
+      //   }
+      // }).toPromise()
+      // .then(data => {
+      //   if(data['data'].length!=0){
+      //     this.list.concat(data['data']);
+      //   }
+      //   this.rNum=this.list.length+1;
+      //   console.log(this.list);
+      // })
+      // .catch();
     });
 
     events.subscribe('comment:main', (data)=>{
@@ -56,7 +56,7 @@ export class MainPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad MainPage');
     // 테스트 아이디 세팅
-    sessionStorage.setItem('id', 'keke0123')
+    //sessionStorage.setItem('id', 'keke0123')
     // 페이지 로딩시 최초 데이타 한번 받아오기
     this.httpd.get('http://192.168.0.3:8888/project/mainPage.do',
     {

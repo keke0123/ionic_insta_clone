@@ -59,6 +59,7 @@ export class SearchPage {
     this.navCtrl.push(ContentPage,
       {
         search_id:this.searchList[i]['searchResult']
-      });
+      }
+    );
   }
 }

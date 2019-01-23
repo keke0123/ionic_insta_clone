@@ -56,13 +56,13 @@ export class ContentPage {
     });
     
     // keke0123 자리에 sessionStorage 에서 받아온 id 값
-    if(this.search_id != 'keke0123'){
+    if(this.search_id != sessionStorage.getItem("id")){
       // 테스트용 session id
       this.httpd.get('http://192.168.0.3:8888/project/searchisfollow.do',
       {
         params:{
           id:this.search_id,
-          myId:'keke0123'
+          myId:sessionStorage.getItem("id")
         }
         // header 
       }).toPromise()
@@ -86,7 +86,7 @@ export class ContentPage {
     {
       params:{
         id:this.search_id,
-        myId:'keke0123'
+        myId:sessionStorage.getItem("id")
       }
       // header 
     }).toPromise()

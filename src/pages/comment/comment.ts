@@ -41,7 +41,7 @@ export class CommentPage {
     this.httpd.get('http://192.168.0.3:8888/project/getcomment.do',
     {
       params:{
-        id:'keke0123',
+        id:sessionStorage.getItem("id"),
         board_num:this.board_num
       }
     }).toPromise()
@@ -71,7 +71,7 @@ export class CommentPage {
     this.httpd.get('http://192.168.0.3:8888/project/setcomment.do',
     {
       params:{
-        id:'keke0123',
+        id:sessionStorage.getItem("id"),
         //comment_group_num:''+this.comment_group_num,
         board_num:this.board_num,
         comment_content:this.comment,
@@ -84,7 +84,7 @@ export class CommentPage {
         this.count_comment=this.count_comment+1;
         
         this.comment_list.push({
-          comment_writer:'keke0123',
+          comment_writer:sessionStorage.getItem("id"),
           comment_content:this.comment,
           target:this.target
         });
