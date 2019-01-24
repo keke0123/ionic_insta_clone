@@ -1,3 +1,11 @@
 page-login {
-
+    .logoImg{
+        display: flex;
+        position: relative;
+        text-align: center;
+        img{
+            position: relative;
+            margin:auto;
+        }
+    }
 }
