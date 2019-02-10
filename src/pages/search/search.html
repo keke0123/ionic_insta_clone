@@ -36,10 +36,10 @@
         <ion-item *ngFor="let item of searchList; let i = index" (click)="contentBtn(i)">
           <ion-thumbnail item-start>
             <span *ngIf="item.thumbnail == null">
-              <img src="http://localhost:8888/project/upload/25.jpeg">
+              <img src="{{this.serviceProvider.data.host}}upload/{{this.serviceProvider.data.thumnail}}">
             </span>
             <span *ngIf="item.thumbnail != null">
-              <img src="http://localhost:8888/project/upload/{{item.thumbnail}}">
+              <img src="{{this.serviceProvider.data.host}}upload/{{item.thumbnail}}">
             </span>
           </ion-thumbnail>
           <h2>{{item.searchResult}}</h2>
@@ -49,10 +49,10 @@
         <ion-item *ngFor="let item of searchList; let i = index" (click)="contentBtn(i)">
           <ion-thumbnail item-start>
             <span *ngIf="item.thumbnail == null">
-              <img src="http://localhost:8888/project/upload/25.jpeg">
+              <img src="{{this.serviceProvider.data.host}}upload/{{this.serviceProvider.data.thumnail}}">
             </span>
             <span *ngIf="item.thumbnail != null">
-              <img src="http://localhost:8888/project/upload/{{item.thumbnail}}">
+              <img src="{{this.serviceProvider.data.host}}upload/{{item.thumbnail}}">
             </span>
           </ion-thumbnail>
           <h2>{{item.searchResult}}</h2>
@@ -62,10 +62,10 @@
         <ion-item *ngFor="let item of searchList; let i = index" (click)="contentBtn(i)">
           <ion-thumbnail item-start>
             <span *ngIf="item.thumbnail == null">
-              <img src="http://localhost:8888/project/upload/25.jpeg">
+              <img src="{{this.serviceProvider.data.host}}upload/{{this.serviceProvider.data.thumnail}}">
             </span>
             <span *ngIf="item.thumbnail != null">
-              <img src="http://localhost:8888/project/upload/{{item.thumbnail}}">
+              <img src="{{this.serviceProvider.data.host}}upload/{{item.thumbnail}}">
             </span>
           </ion-thumbnail>
           <h2>{{item.searchResult}}</h2>

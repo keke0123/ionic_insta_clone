@@ -2,6 +2,7 @@ import { Component} from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { ContentPage } from '../content/content';
+import { ServiceProvider } from '../../providers/service/service';
 
 /**
  * Generated class for the SearchPage page.
@@ -22,7 +23,7 @@ export class SearchPage {
   searchList:Array<object>=[];
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    private httpd:HttpClient) {
+    private httpd:HttpClient, private serviceProvider:ServiceProvider) {
   }
 
   ionViewDidLoad() {
@@ -33,7 +34,7 @@ export class SearchPage {
   getItems($event){
     console.log($event.target.value);
     this.search=$event.target.value;
-    this.httpd.get('http://192.168.0.3:8888/project/search.do',
+    this.httpd.get(this.serviceProvider.data.host+'search.do',
     {
       params:{
         id:sessionStorage.getItem("id"),

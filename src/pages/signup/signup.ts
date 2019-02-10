@@ -4,6 +4,7 @@ import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms'
 import {HTTP} from '@ionic-native/http';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { isUndefined, isBoolean } from 'ionic-angular/umd/util/util';
+import { ServiceProvider } from '../../providers/service/service';
 
 @IonicPage()
 @Component({
@@ -31,7 +32,7 @@ export class SignupPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private formBuilder:FormBuilder, private http:HTTP,
-    private httpd: HttpClient) {
+    private httpd: HttpClient, private serviceProvider:ServiceProvider) {
     this.signupForm = formBuilder.group({
       // canUseId 는 사용자 정의 validator
       userId:['', [Validators.required, Validators.minLength(4)]],
@@ -47,7 +48,8 @@ export class SignupPage {
   checkId(errorId){
     this.idUsed=false;
     console.log("checkId");
-    this.httpd.get('http://192.168.0.3:8888/project/checkid.do',
+    //this.httpd.get('http://192.168.0.3:8888/project/checkid.do',
+    this.httpd.get(this.serviceProvider.data.host+'checkid.do',
     {
       // JSON.stringfy 쓰고 싶으면 header 에 content-type에 charset까지 명시
       params:{
@@ -112,7 +114,7 @@ export class SignupPage {
     };
     //console.log("id : "+this.data.id);
     // 이렇게 body 에 보낼때는 받을때 @requestbody 로 받아야 된다.
-    this.httpd.post('http://192.168.0.3:8888/project/signup.do',
+    this.httpd.post(this.serviceProvider.data.host+'signup.do',
     {
       // JSON.stringfy 쓰고 싶으면 header 에 content-type에 charset까지 명시
       id:this.data.id,

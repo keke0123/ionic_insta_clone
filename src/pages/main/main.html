@@ -16,10 +16,10 @@
     <ion-item>
       <ion-avatar item-start>
         <span *ngIf="item.thumbnail != null">
-            <img src="http://localhost:8888/project/upload/{{item.thumbnail}}" alt="썸네일">
+            <img src="{{this.serviceProvider.data.host}}upload/{{item.thumbnail}}" alt="썸네일">
         </span>
         <span *ngIf="item.thumbnail == null">
-            <img src="http://localhost:8888/project/upload/25.jpeg" alt="썸네일">
+            <img src="{{this.serviceProvider.data.host}}upload/{{this.serviceProvider.data.thumnail}}" alt="썸네일">
         </span>
       </ion-avatar>
       <h2>{{item.writer}}</h2>
@@ -27,7 +27,7 @@
     </ion-item>
     <ion-slides pager class="imgBox">
       <ion-slide *ngFor="let img of item.imgs">
-        <img src="http://localhost:8888/project/upload/{{img}}" alt="">
+        <img src="{{this.serviceProvider.data.host}}upload/{{img}}" alt="">
       </ion-slide>
     </ion-slides>
     <ion-card-content>

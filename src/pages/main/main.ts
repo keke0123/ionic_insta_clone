@@ -30,7 +30,7 @@ export class MainPage {
     private serviceProvider:ServiceProvider) {
     events.subscribe('tab:main', ()=>{
       console.log("main clicked");
-      this.httpd.get('http://192.168.0.3:8888/project/mainPage.do',
+      this.httpd.get(this.serviceProvider.data.host+'mainPage.do',
       {
         params:{
           id:sessionStorage.getItem("id"),
@@ -61,7 +61,7 @@ export class MainPage {
     // 테스트 아이디 세팅
     //sessionStorage.setItem('id', 'keke0123')
     // 페이지 로딩시 최초 데이타 한번 받아오기
-    this.httpd.get('http://192.168.0.3:8888/project/mainPage.do',
+    this.httpd.get(this.serviceProvider.data.host+'mainPage.do',
     {
       params:{
         id:sessionStorage.getItem("id"),
@@ -91,7 +91,7 @@ export class MainPage {
     // scroll bottom
     if(this.content.scrollHeight== e.scrollTop+this.content.contentHeight){
       console.log("bottom");
-      this.httpd.get('http://192.168.0.3:8888/project/mainPage.do',
+      this.httpd.get(this.serviceProvider.data.host+'mainPage.do',
       {
         params:{
           id:sessionStorage.getItem("id"),
@@ -114,7 +114,7 @@ export class MainPage {
   // 테스트 로그인 체크
   testLoginCheck(){
     console.log("testLoginBtn");
-    this.httpd.get('http://192.168.0.3:8888/project/loginTest1.do',
+    this.httpd.get(this.serviceProvider.data.host+'loginTest1.do',
     {
       params:{
         id:sessionStorage.getItem("id"),
@@ -129,7 +129,7 @@ export class MainPage {
 
   sessionTest1(){
     sessionStorage.setItem("id","keke0123");
-    this.httpd.get('http://192.168.0.3:8888/project/loginTest2.do',
+    this.httpd.get(this.serviceProvider.data.host+'loginTest2.do',
     {
       withCredentials : true,
       params:{
@@ -143,7 +143,7 @@ export class MainPage {
   }
   sessionTest2(){
     sessionStorage.setItem("id","keke0123");
-    this.httpd.get('http://192.168.0.3:8888/project/loginTest3.do',
+    this.httpd.get(this.serviceProvider.data.host+'loginTest3.do',
     {
       withCredentials : true,
       params:{
@@ -161,7 +161,7 @@ export class MainPage {
     console.log(num);
     // index 번호
     console.log(i);
-    this.httpd.get('http://192.168.0.3:8888/project/likebtn.do',
+    this.httpd.get(this.serviceProvider.data.host+'likebtn.do',
     {
       params:{
         id:sessionStorage.getItem("id"),

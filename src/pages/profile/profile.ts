@@ -34,7 +34,7 @@ export class ProfilePage {
     console.log('ionViewDidLoad ProfilePage');
     //provider test
     console.log(this.serviceProvider.data.x);
-    this.httpd.get('http://192.168.0.3:8888/project/profile.do',
+    this.httpd.get(this.serviceProvider.data.host+'profile.do',
     {
       params:{
         id:sessionStorage.getItem("id"),
@@ -62,7 +62,7 @@ export class ProfilePage {
     
     if(this.content.scrollHeight== e.scrollTop+this.content.contentHeight){
       console.log("bottom");
-      this.httpd.get('http://192.168.0.3:8888/project/profile.do',
+      this.httpd.get(this.serviceProvider.data.host+'profile.do',
       {
         params:{
           id:sessionStorage.getItem("id"),

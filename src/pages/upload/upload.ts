@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {Camera, CameraOptions} from '@ionic-native/camera';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { ImagePicker, ImagePickerOptions } from '@ionic-native/image-picker';
+import { ServiceProvider } from '../../providers/service/service';
 
 /**
  * Generated class for the UploadPage page.
@@ -23,7 +24,8 @@ export class UploadPage {
   content:string='';
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    private camera:Camera, private imagePicker:ImagePicker, private httpd:HttpClient) {
+    private camera:Camera, private imagePicker:ImagePicker, private httpd:HttpClient,
+    private serviceProvider:ServiceProvider) {
   }
 
   ionViewDidLoad() {
@@ -68,7 +70,7 @@ export class UploadPage {
   }
   // 전송 버튼
   submitBtn(){
-    this.httpd.post('http://192.168.0.3:8888/project/uploaddata.do',{
+    this.httpd.post(this.serviceProvider.data.host+'uploaddata.do',{
       // data
       uploadImgs:this.pImg,
       tags:this.tags,

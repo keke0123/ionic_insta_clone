@@ -18,10 +18,10 @@
     <ion-item class="head">
       <ion-avatar item-left>
         <span *ngIf="profile.thumbnail == null">
-          <img src="http://localhost:8888/project/upload/25.jpeg">
+          <img src="{{this.serviceProvider.data.host}}upload/{{this.serviceProvider.data.thumnail}}">
         </span>
         <span *ngIf="profile.thumbnail != null">
-          <img src="http://localhost:8888/project/upload/{{profile.thumbnail}}">
+          <img src="{{this.serviceProvider.data.host}}upload/{{profile.thumbnail}}">
         </span>
       </ion-avatar>
       <h2>{{profile.id}}</h2>
@@ -49,7 +49,7 @@
     <ion-list *ngSwitchCase="'imgs'">
       <!-- card background -->
       <ion-card class="imgCard" *ngFor="let item of list">
-        <img class="photo" src="http://localhost:8888/project/upload/{{item.imgs[0]}}"/>
+        <img class="photo" src="{{this.serviceProvider.data.host}}upload/{{item.imgs[0]}}"/>
         <div class="title"><h2>사진</h2></div>
       </ion-card>
     </ion-list>

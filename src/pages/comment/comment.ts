@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, Events } from 'ionic-angular';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
+import { ServiceProvider } from '../../providers/service/service';
 
 /**
  * Generated class for the CommentPage page.
@@ -26,7 +27,8 @@ export class CommentPage {
   index:number=0;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    private httpd:HttpClient, private events:Events) {
+    private httpd:HttpClient, private events:Events,
+    private serviceProvider:ServiceProvider) {
     this.board_num=this.navParams.get("board_num");
     this.writer=this.navParams.get("writer");
     this.count_comment=this.navParams.get('count_comment');
@@ -38,7 +40,7 @@ export class CommentPage {
     console.log("comment board_num : "+this.board_num);
     
     // 원래 id 는 session 에 담긴 id 값
-    this.httpd.get('http://192.168.0.3:8888/project/getcomment.do',
+    this.httpd.get(this.serviceProvider.data.host+'getcomment.do',
     {
       params:{
         id:sessionStorage.getItem("id"),
@@ -68,7 +70,7 @@ export class CommentPage {
     this.target=this.writer;
     console.log(this.writer);
     this.comment_group_num=0; 
-    this.httpd.get('http://192.168.0.3:8888/project/setcomment.do',
+    this.httpd.get(this.serviceProvider.data.host+'setcomment.do',
     {
       params:{
         id:sessionStorage.getItem("id"),

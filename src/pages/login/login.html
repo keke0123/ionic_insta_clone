@@ -39,7 +39,7 @@
         <p #errorPassword>{{errorData.userPassword}}</p>
     </ion-item> 
     <button ion-button type="submit" [disabled]="loginForm.invalid && triedToSubmitLogin">Login</button>
-    <button ion-button icon-start (click)="signupBtn()">
+    <button ion-button type="button" icon-start (click)="signupBtn()">
       <ion-icon name="play" ></ion-icon>
       SignUp
     </button>

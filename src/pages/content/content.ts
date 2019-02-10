@@ -1,6 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, Content } from 'ionic-angular';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
+import { ServiceProvider } from '../../providers/service/service';
 
 /**
  * Generated class for the ContentPage page.
@@ -27,7 +28,7 @@ export class ContentPage {
   isMyId:boolean=false;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    private httpd:HttpClient) {
+    private httpd:HttpClient, private serviceProvider:ServiceProvider) {
     
   }
 
@@ -36,7 +37,7 @@ export class ContentPage {
     this.search_id=this.navParams.get("search_id");
     console.log(this.search_id);
 
-    this.httpd.get('http://192.168.0.3:8888/project/searchid.do',
+    this.httpd.get(this.serviceProvider.data.host+'searchid.do',
     {
       params:{
         id:this.search_id,
@@ -58,7 +59,7 @@ export class ContentPage {
     // keke0123 자리에 sessionStorage 에서 받아온 id 값
     if(this.search_id != sessionStorage.getItem("id")){
       // 테스트용 session id
-      this.httpd.get('http://192.168.0.3:8888/project/searchisfollow.do',
+      this.httpd.get(this.serviceProvider.data.host+'searchisfollow.do',
       {
         params:{
           id:this.search_id,
@@ -82,7 +83,7 @@ export class ContentPage {
   }
 
   followSystem(){
-    this.httpd.get('http://192.168.0.3:8888/project/searchfollowsystem.do',
+    this.httpd.get(this.serviceProvider.data.host+'searchfollowsystem.do',
     {
       params:{
         id:this.search_id,
@@ -111,7 +112,7 @@ export class ContentPage {
     
     if(this.content.scrollHeight== e.scrollTop+this.content.contentHeight){
       console.log("bottom");
-      this.httpd.get('http://192.168.0.3:8888/project/searchid.do',
+      this.httpd.get(this.serviceProvider.data.host+'searchid.do',
       {
         params:{
           id:sessionStorage.getItem("id"),

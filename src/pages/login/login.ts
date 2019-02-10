@@ -6,6 +6,7 @@ import { TabPage } from '../tab/tab';
 import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { AlertController } from 'ionic-angular';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
+import { ServiceProvider } from '../../providers/service/service';
 
 /**
  * Generated class for the LoginPage page.
@@ -24,13 +25,14 @@ export class LoginPage {
     id:'',
     password:''
   }
-
+  // 로그인 폼 유효성 체크 
   loginForm: FormGroup;
+  
   triedToSubmitLogin: boolean = false;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private formBuilder:FormBuilder, private alertCtrl: AlertController,
-    private httpd:HttpClient) {
+    private httpd:HttpClient, private serviceProvider:ServiceProvider) {
     this.loginForm = this.formBuilder.group({
       userId:['', [Validators.required, Validators.minLength(2)]],
       userPassword:['', [Validators.required, Validators.pattern('(?=.*?[#?!@$%^&*-])(?=.*?[a-z])(?=.*?[0-9]).{6,}')]]
@@ -62,7 +64,7 @@ export class LoginPage {
       }
       return null;
     }
-    this.httpd.post('http://192.168.0.3:8888/project/login.do',
+    this.httpd.post(this.serviceProvider.data.host+'login.do',
     {
       id:this.data.id,
       password:this.data.password,
@@ -112,7 +114,7 @@ export class LoginPage {
           text: 'send',
           handler: (data) => {
             console.log('send clicked');
-            this.httpd.get('http://192.168.0.3:8888/project/findpassword.do',
+            this.httpd.get(this.serviceProvider.data.host+'findpassword.do',
             {
               params:{
                 email:data.email

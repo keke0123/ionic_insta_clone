@@ -11,7 +11,9 @@ import { Injectable } from '@angular/core';
 export class ServiceProvider {
 
   data:any={
-    x:''
+    x:'',
+    host:'http://192.168.0.8:8888/project/',
+    thumnail:'1.jpeg'
   }
 
   constructor(public http: HttpClient) {
