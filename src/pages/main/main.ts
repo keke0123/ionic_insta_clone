@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, NgZone } from '@angular/core';
 import { IonicPage, NavController, NavParams, Content, Events } from 'ionic-angular';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { CommentPage } from '../comment/comment';
@@ -16,6 +16,8 @@ export class MainPage {
   rNum:number = 1;
   list:Array<object> = [];
 
+  isloaded:boolean=false;
+
   httpOptions = {
     headers: new HttpHeaders({
       // charset까지 적어주면 json.stringify 해도 들어간다.
@@ -27,9 +29,13 @@ export class MainPage {
   };
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private httpd:HttpClient, private events:Events, 
-    private serviceProvider:ServiceProvider) {
+    private serviceProvider:ServiceProvider,
+    private zone:NgZone) {
     events.subscribe('tab:main', ()=>{
       console.log("main clicked");
+      if(this.isloaded==false){
+        return null;
+      }
       this.httpd.get(this.serviceProvider.data.host+'mainPage.do',
       {
         params:{
@@ -74,6 +80,8 @@ export class MainPage {
         this.list=data['data'];
       }
       this.rNum=this.list.length+1;
+      console.log(this.list);
+      this.isloaded=true;
     })
     .catch();
   }
@@ -87,7 +95,7 @@ export class MainPage {
     }
     //console.log(this.content.contentHeight);
     //console.log(this.content.scrollHeight);
-    //console.log(e.scrollTop);
+    console.log(e.scrollTop);
     // scroll bottom
     if(this.content.scrollHeight== e.scrollTop+this.content.contentHeight){
       console.log("bottom");
@@ -100,10 +108,16 @@ export class MainPage {
         }
       }).toPromise()
       .then(data => {
+        console.log("list:"+this.list);
+        console.log("data.data:"+data['data']);
         if(data['data'].length!=0){
-          this.list.concat(data['data']);
+          this.zone.run(()=>{
+            this.list=this.list.concat(data['data']);
+          });
+          
         }
         this.rNum=this.list.length+1;
+        console.log("rNum:"+this.rNum);
         console.log(this.list);
       })
       .catch();
